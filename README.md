@@ -2,24 +2,24 @@
 
 Aplikasi Android untuk mencocokkan nomor pesanan/nomor resi retur dengan data master Excel (.xlsx). Data disimpan lokal di perangkat menggunakan Room.
 
-## Fitur yang tersedia pada source
+## Fitur
 - Import Excel melalui pemilih dokumen Android.
-- Kolom wajib: nomor pesanan dan nomor resi; alias header dijelaskan di kode `ExcelService`.
+- Alias header kolom wajib: nomor pesanan / no pesanan / order / order number / nomor order; dan nomor resi / no resi / resi / AWB / tracking number / kode resi.
+- Menangani format tampilan sel Excel dan formula melalui Apache POI DataFormatter.
 - Penyimpanan data master dan riwayat scan lokal (Room).
 - Input manual nomor pesanan atau resi.
 - Status cocok, tidak ditemukan, dan duplikat.
-- Scan barcode melalui Google Code Scanner.
-- Ekspor laporan ke Excel.
+- Scan barcode melalui Google Code Scanner (membutuhkan Google Play Services yang kompatibel).
+- Ekspor laporan Excel.
 - Ringkasan jumlah data dan riwayat scan.
 
-## Build lokal
-- Android Studio dengan Android Gradle Plugin 8.7.3.
-- JDK 17, Android SDK 35, Gradle 8.9.
-- Buka folder `ReturMatcher`, lalu jalankan Gradle Sync dan `assembleDebug`.
+## Build
+- JDK 17, Android SDK 35, Android Gradle Plugin 8.7.3.
+- Gradle 8.9.
+- Jalankan `gradle --no-daemon assembleDebug` dari root project.
 
-## Build APK otomatis di GitHub
-Workflow `.github/workflows/android-apk.yml` berjalan saat push, pull request, atau `workflow_dispatch`.
-Setelah workflow sukses: buka tab **Actions** → pilih run **Android APK** → unduh artifact **ReturMatcher-debug-apk**. APK debug dapat dipasang untuk uji coba; untuk distribusi publik/Play Store, buat APK/AAB release yang ditandatangani dengan keystore milik pemilik aplikasi.
+## APK dari GitHub Actions
+Setelah workflow **Android APK** sukses, buka tab **Actions**, pilih run terbaru, lalu unduh artifact **ReturMatcher-debug-apk**. APK debug untuk pengujian; distribusi publik memerlukan APK/AAB release yang ditandatangani dengan keystore pemilik aplikasi.
 
-## Catatan audit
-Source awal adalah MVP dan belum membuktikan seluruh alur berjalan di perangkat. Uji import file Excel nyata, pemindaian kamera/Google Play Services, pencocokan, duplikat, ekspor, dan pemulihan data pada perangkat Android. Pencocokan saat ini exact match.
+## Batasan yang perlu diuji
+Aplikasi masih MVP. Sebelum dipakai operasional, uji dengan file Excel aktual (termasuk nomor resi dengan nol di depan), perangkat Android, kamera/Google Play Services, pencocokan, duplikat, ekspor, dan pemulihan data. Pencocokan menggunakan exact match setelah trim; belum melakukan fuzzy matching.
