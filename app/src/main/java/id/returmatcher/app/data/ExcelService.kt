@@ -10,7 +10,7 @@ object ExcelService {
     /** Header aliases supported: nomor pesanan/order/order number and nomor resi/resi/awb/tracking number. */
     fun importMaster(context: Context, uri: Uri): List<MasterOrder> {
         val input = context.contentResolver.openInputStream(uri) ?: error("File tidak dapat dibuka")
-        input.use { stream ->
+        return input.use { stream ->
             WorkbookFactory.create(stream).use { workbook ->
                 require(workbook.numberOfSheets > 0) { "Workbook tidak memiliki sheet." }
                 val sheet = workbook.getSheetAt(0)
